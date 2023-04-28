@@ -1,31 +1,38 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from .models import TempModel
+from datetime import date
 
 # Create your views here.
 
 
 def Home(request):
-
-    # get today's date
-
-    # filter temp by the date
-    temp = TempModel.objects.filter()
+    # filter temp saved last
+    temp = TempModel.objects.last()
+    context = {'temperature': temp}
 
     # render the page
-    return render(request, 'index.html')
+    return render(request, 'index.html', context)
 
-
+@csrf_exempt
 def receiveData(request):
-    # get sensor data
-    data = request.POST['data']
+    # Check if the request method is POST
+    if request.method == 'POST':
+        # Check if the API token is valid
+        api_token = request.GET.get('token', '')
+        if api_token != 'your_API_token':
+            return HttpResponse('Invalid API token', status=401)
 
-    # # create an instance of TempModel
-    # temp = TempModel()
+        # Extract the temperature value from the POST request body
+        temperature = request.POST.get('temperature', '')
+        if not temperature:
+            return HttpResponse('Temperature value is missing', status=400)
 
-    # # assign data to the fields
-    # temp['tempValue'] = data
+        # Create a new Temperature object and save it to the database
+        temperature_obj = TempModel(tempValue=temperature)
+        temperature_obj.save()
 
-    # # save the data
-    # temp.save()
-
-    print("data from arduino: ", data)
+        return HttpResponse('Temperature value saved successfully')
+    else:
+        return HttpResponse('Invalid request method', status=405)

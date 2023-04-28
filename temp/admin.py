@@ -4,4 +4,4 @@ from .models import TempModel
 # Register your models here.
 
 
-admin.register(TempModel)
+admin.site.register(TempModel)

@@ -9,5 +9,5 @@ class TempModel(models.Model):
 
 
     def __str__(self):
-        return self.tempValue
+        return str(self.tempValue)
     
