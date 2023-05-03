@@ -7,38 +7,65 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <title>Temp- dashboard</title>
+      {% load bootstrap5 %}
+      {% bootstrap_css %}
+      {% bootstrap_javascript %}
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
    </head>
    <body>
-      <div class="wrapper">
-         <div >
-               <a href="index.html">
-               <img src="images/logo.png" class="img-fluid" alt="">
-               <span style="color:#ee712b">FundiBots </span>
+      <div>
+         <div class="navbar bg-dark">
+            <div class="container-fluid">
+               <a style="text-decoration:none;" href="index.html">
+                  <img src="images/logo.png" class="img-fluid" alt="">
+                  <span class="text-light display-5 nav-item">FundiBots</span>
                </a>
+            </div>
+               
               
             </div>
-            <div>
-               <li class="active">
-                  <a><span>Dashboard</span></a>       
-               </li>
+         </div>
+         <div id="sidebarMenu" style="z-index: 600; width: 240px;">
+            <div class="container-fluid position-sticky">
+               <div class="list-group list-group-flush mx-3 mt-4">
+                  <li class="active nav-link mt-sm-4">
+                     <a class="list-group-item list-group-item-action py-2 ripple" aria-current="true"><span style="font-size: 22px">Dashboard</span></a>       
+                  </li>
+               </div>
+            </div>
+          
+         </div>
+
+         <div class="row">
+            <div class="col-sm-4">
+
+            </div>
+            <div class="col-sm-4 mt-sm-2">
+               <div class="card text-center">
+                  <div>
+                     <p style="color:grey; font-size:20px">Current Temperature</p>
+                  </div>
+                  <div style="color:grey; font-size:15px"><span id="tempValue"></span>&deg;C</div>
+               </div>
+            </div>
+            <div class="col-sm-4">
+
             </div>
          </div>
-        
-         <div>
-            {% if temperature %}
-            <div><h2><span>{{temperature}} &deg;C</span></h2></div>
-            {% else %}
-            <h4> No temperature data available </h4>
-            {% endif %}
+         <div class="mt-sm-4 container">
+            <div class="mt-sm-4 container" style="position: relative; height:15vh; width:30vw">
+               <canvas id="line-chart"></canvas>
+             </div>
          </div>
-         <div>
-            <h4>Temperature change</h4>
-         </div>
-      <footer>
-         <div>
-            Copyright 2020 <a href="#">FundiBots</a> All Rights Reserved.
+         
+      <footer style="padding-left: 10px" class="bg-dark text-center text-light text-lg-start fixed-bottom">
+         <div class="bg-dark text-center text-light text-lg-start ">
+            Copyright 2023 <a href="#">FundiBots</a> All Rights Reserved.
          </div>
         
       </footer>
+      <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js" integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="{% static 'js/index.js' %}"></script>
    </body>
 </html>
