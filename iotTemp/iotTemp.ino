@@ -5,7 +5,7 @@ int temp = 8;
 float tempValue;
 
 const char* ssid = "Jamienenz";
-const char* = "nenz626666";
+const char* pwd = "nenz626666";
 
 const char* serverUrl = "http://django-server-address/";
 const char* endpoint = "receiveData/";
@@ -17,7 +17,7 @@ void setup() {
 
   // connect to the wifi
   WiFi.begin(ssid, pwd);
-  while(WiFi.status != WL_CONNECTED){
+  while(WiFi.status() != WL_CONNECTED){
     delay(1000);
     Serial.print(".");
   }
@@ -27,7 +27,7 @@ void setup() {
 void loop() {
   tempValue = analogRead(temp);
   
-  if(WiFi.status == WL_CONNECTED){
+  if(WiFi.status() == WL_CONNECTED){
     WiFiClient wifiClient;
     HTTPClient http;
     
